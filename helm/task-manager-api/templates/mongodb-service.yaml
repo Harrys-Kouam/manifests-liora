@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "task-manager-api.fullname" . }}-mongodb
+  labels:
+    {{- include "task-manager-api.labels" . | nindent 4 }}
+    app.kubernetes.io/component: mongodb
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - port: 27017
+      targetPort: mongo
+      protocol: TCP
+      name: mongo
+  selector:
+    {{- include "task-manager-api.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: mongodb

@@ -1,0 +1,5 @@
+The API is exposed through a MetalLB LoadBalancer Service.
+
+Check its assigned address with:
+
+  kubectl get service --namespace {{ .Release.Namespace }} {{ include "task-manager-api.fullname" . }}-service

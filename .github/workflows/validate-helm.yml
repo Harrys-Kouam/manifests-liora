@@ -1,0 +1,36 @@
+name: Validate Helm chart
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "helm/**"
+      - "argocd/**"
+      - ".github/workflows/validate-helm.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "helm/**"
+      - "argocd/**"
+      - ".github/workflows/validate-helm.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.17.3
+
+      - name: Lint chart
+        run: helm lint helm/task-manager-api
+
+      - name: Render chart
+        run: helm template task-manager-api helm/task-manager-api --namespace task-manager
