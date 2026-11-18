@@ -5,13 +5,11 @@ on:
     branches: [main]
     paths:
       - "helm/**"
-      - "argocd/**"
       - ".github/workflows/validate-helm.yml"
   pull_request:
     branches: [main]
     paths:
       - "helm/**"
-      - "argocd/**"
       - ".github/workflows/validate-helm.yml"
 
 permissions:
